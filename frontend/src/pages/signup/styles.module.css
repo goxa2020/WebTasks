@@ -1,0 +1,55 @@
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Убедитесь, что pop-up выше других элементов */
+}
+
+.popupContent {
+  background-color: white; /* Цвет фона поп-апа */
+  border-radius: 8px; /* Скругление углов */
+  padding: 20px; /* Внутренние отступы */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Тень */
+  text-align: center; /* Центрирование текста */
+  width: 300px; /* Ширина поп-апа */
+}
+
+.popup h2 {
+  margin: 0 0 10px; /* Отступы для заголовка */
+  font-size: 20px; /* Размер шрифта заголовка */
+}
+
+.popup p {
+  margin: 0 0 20px; /* Отступы для текста сообщения */
+  font-size: 16px; /* Размер шрифта сообщения */
+}
+
+.popup button {
+  background-color: #007bff; /* Цвет кнопки */
+  color: white; /* Цвет текста кнопки */
+  border: none; /* Убираем границу */
+  border-radius: 5px; /* Скругление углов кнопки */
+  padding: 10px 15px; /* Внутренние отступы кнопки */
+  cursor: pointer; /* Указатель курсора при наведении */
+  transition: background-color 0.3s; /* Плавный переход цвета фона */
+  display: flex; /* Используем flexbox для центрирования текста */
+  justify-content: center; /* Центрирование текста по горизонтали */
+  align-items: center; /* Центрирование текста по вертикали */
+  width: 100px; /* Ширина кнопки (можно изменить по желанию) */
+  margin: 0 auto; /* Центрирование кнопки в контейнере */
+}
+
+.popup button:hover {
+  background-color: #0056b3; /* Цвет кнопки при наведении */
+}
+
+/* Класс для скрытия pop-up */
+.popup.hidden {
+  display: none; /* Скрываем pop-up */
+}
