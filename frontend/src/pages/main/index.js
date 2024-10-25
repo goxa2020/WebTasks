@@ -4,6 +4,7 @@ import { useRecipes } from '../../utils/index.js'
 import { useEffect } from 'react'
 import api from '../../api'
 import MetaTags from 'react-meta-tags'
+import Boarde from '../../components/boardbox/board.js'
 
 const HomePage = ({ updateOrders }) => {
   const {
@@ -60,15 +61,7 @@ const HomePage = ({ updateOrders }) => {
           }}
         />
       </div>
-      <CardList>
-        {recipes.map(card => <Card
-          {...card}
-          key={card.id}
-          updateOrders={updateOrders}
-          handleLike={handleLike}
-          handleAddToCart={handleAddToCart}
-        />)}
-      </CardList>
+          <Boarde/>
       <Pagination
         count={recipesCount}
         limit={6}
