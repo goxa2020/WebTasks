@@ -11,12 +11,10 @@ SECRET_KEY = os.getenv('SECRET_KEY', '53252')
 DEBUG = True  # os.environ.get('DEBUG', False) == 'True'
 
 ALLOWED_HOSTS = [
-    '158.160.14.198',
     '127.0.0.1',
     'localhost',
-    'arhsidefood.hopto.org',
 ]
-CSRF_TRUSTED_ORIGINS = ['https://arhsidefood.hopto.org']
+# CSRF_TRUSTED_ORIGINS = ['']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -29,10 +27,10 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'djoser',
-    'recipes.apps.RecipesConfig',
     'api.apps.ApiConfig',
     'colorfield',
     'corsheaders',
+    'recipes'
 ]
 
 MIDDLEWARE = [
