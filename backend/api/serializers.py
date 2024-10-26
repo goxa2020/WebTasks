@@ -52,6 +52,8 @@ class DefaultTaskSerializer(serializers.ModelSerializer):
 
 class TaskSerializer(serializers.ModelSerializer):
     tag = TagSerializer(read_only=True, many=False)
+    author = UserSerializer()
+    doer = UserSerializer()
 
     class Meta:
         fields = (
@@ -59,6 +61,7 @@ class TaskSerializer(serializers.ModelSerializer):
             'pub_date',
             'tag',
             'text',
+            'status',
             'author',
             'doer',
             'name',
