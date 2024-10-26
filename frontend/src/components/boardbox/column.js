@@ -3,9 +3,9 @@ import { Droppable, Draggable } from 'react-beautiful-dnd';
 import TaskCard from './taskcard.js';
 import styles from './style.module.css'
 
-const Column = ({ title, tasks }) => {
+const Column = ({ title, tasks, droppableId }) => {
   return (
-    <Droppable droppableId={title.toLowerCase().replace(' ', '-')}>
+    <Droppable droppableId={droppableId}>
       {(provided) => (
         <div className={styles.column} ref={provided.innerRef} {...provided.droppableProps}>
           <h2>{title}</h2>

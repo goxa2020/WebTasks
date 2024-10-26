@@ -8,7 +8,7 @@ const initialData = {
     { id: '1', title: 'Task 1', assignee: 'Alice' },
     { id: '2', title: 'Task 2', assignee: 'Bob' },
   ],
-  "in-progress": [
+  "inProgress": [
     { id: '3', title: 'Task 3', assignee: 'Charlie' },
   ],
   "done": [
@@ -44,9 +44,9 @@ const Board = () => {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className={styles.board}>
-        <Column title="To Do" tasks={tasks.todo} />
-        <Column title="In Progress" tasks={tasks.inProgress} />
-        <Column title="Done" tasks={tasks.done} />
+        <Column title="To Do" tasks={tasks.todo} droppableId={'todo'}/>
+        <Column title="In Progress" tasks={tasks.inProgress} droppableId={'inProgress'}/>
+        <Column title="Done" tasks={tasks.done} droppableId={'done'}/>
       </div>
     </DragDropContext>
   );
