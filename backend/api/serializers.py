@@ -36,7 +36,7 @@ class ReadUserSerializer(UserSerializer):
 
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
-        fields = ('id', 'name', 'color', 'slug')
+        fields = ('id', 'name', 'color')
         model = Tag
 
 
@@ -51,16 +51,16 @@ class DefaultTaskSerializer(serializers.ModelSerializer):
 
 
 class TaskSerializer(serializers.ModelSerializer):
-    tags = TagSerializer(read_only=True, many=True)
-    author = ReadUserSerializer(read_only=True)
+    tag = TagSerializer(read_only=True, many=False)
 
     class Meta:
         fields = (
             'id',
             'pub_date',
-            'tags',
+            'tag',
             'text',
             'author',
+            'doer',
             'name',
             'deadline'
         )
@@ -68,47 +68,32 @@ class TaskSerializer(serializers.ModelSerializer):
 
 
 class CreateTaskSerializer(serializers.ModelSerializer):
-    tags = PrimaryKeyRelatedField(queryset=Tag.objects.all(), many=True)
-    author = ReadUserSerializer(read_only=True)
+    tag = PrimaryKeyRelatedField(queryset=Tag.objects.all(), many=False)
 
     class Meta:
         fields = (
             'id',
             'pub_date',
-            'tags',
+            'tag',
             'text',
             'author',
+            'doer',
             'name',
             'deadline'
         )
         model = Task
 
     def create(self, validated_data):
-        tags_data = validated_data.pop('tags', None)
-        author = self.context.get('request').user
-        recipes = Recipe.objects.create(author=author, **validated_data)
-        recipes.tags.set(tags_data)
-        return recipes
-
-    def update(self, instance, validated_data):
-        tags_data = validated_data.pop('tags', None)
-        recipes = super().update(instance, validated_data)
-        recipes.tags.set(tags_data)
+        author = validated_data.pop('author', None)
+        if not author:
+            return
+        recipes = Task.objects.create(author=author, **validated_data)
         return recipes
 
     def validate(self, data):
         if self.context['request'].method == 'POST':
             data.pop('user', None)
         return data
-
-    def validate_tags(self, tags):
-        if len(tags) != len(set(tags)):
-            duplicates = set(tag for tag in tags if tags.count(tag) > 1)
-            raise serializers.ValidationError(
-                'Тэги должны быть уникальны! Дубликаты: '
-                f'{", ".join(duplicates)}.'
-            )
-        return tags
 
     def to_representation(self, instance):
         return TaskSerializer(instance, context=self.context).data

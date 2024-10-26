@@ -10,9 +10,8 @@ from backend.settings import (
 from colorfield.fields import ColorField
 
 from django.contrib.auth.models import AbstractUser
-from django.core.validators import MinValueValidator, RegexValidator
+from django.core.validators import RegexValidator
 from django.db import models
-from django.db.models import UniqueConstraint
 from django.utils.translation import gettext_lazy as _
 
 
@@ -65,12 +64,15 @@ class Tag(models.Model):
 
 class Task(models.Model):
     author = models.ForeignKey(
-        User, related_name='tasks', on_delete=models.CASCADE
+        User, related_name='created_tasks', on_delete=models.CASCADE
+    )
+    doer = models.ForeignKey(
+        User, related_name='assigned_tasks', on_delete=models.CASCADE
     )
     name = models.CharField(max_length=NAME_LEGNTH, verbose_name='название')
     text = models.TextField(verbose_name='описание')
-    tags = models.ManyToManyField(
-        Tag, related_name='tasks', verbose_name='тэги'
+    tag = models.ForeignKey(
+        Tag, related_name='tasks', verbose_name='тэги', on_delete=models.CASCADE
     )
     deadline = models.DateField(verbose_name='сроки выполнения')
     pub_date = models.DateField('дата публикации', auto_now_add=True)

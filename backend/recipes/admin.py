@@ -13,20 +13,16 @@ class TaskAdmin(admin.ModelAdmin):
         'name',
         'author',
         'deadline',
-        'get_tags',
+        'tag',
     )
     fields = (
         'name',
         'author',
         'deadline',
-        'tags',
+        'tag',
         'text',
     )
-    list_filter = ('author', 'tags')
-
-    @admin.display(description='тэги')
-    def get_tags(self, tags_list):
-        return mark_safe(', '.join(tag.name for tag in tags_list.tags.all()))
+    list_filter = ('author', 'tag')
 
 
 @admin.register(Tag)
