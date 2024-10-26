@@ -1,11 +1,11 @@
 import React from 'react';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import TaskCard from './taskcard.js';
-
+import styles from './style.module.css'
 
 const Column = ({ title, tasks }) => {
   return (
-    <Droppable droppableId={title.toLowerCase().replace(' ', '-')}>
+    <Droppable className={styles.column} droppableId={title.toLowerCase().replace(' ', '-')}>
       {(provided) => (
         <div className="column" ref={provided.innerRef} {...provided.droppableProps}>
           <h2>{title}</h2>

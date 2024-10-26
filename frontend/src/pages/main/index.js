@@ -4,6 +4,7 @@ import { useRecipes } from '../../utils/index.js'
 import { useEffect } from 'react'
 import api from '../../api'
 import MetaTags from 'react-meta-tags'
+import Board from '../../components/boardbox/board.js'
 
 const HomePage = ({ updateOrders }) => {
   const {
@@ -60,6 +61,7 @@ const HomePage = ({ updateOrders }) => {
           }}
         />
       </div>
+      <Board/>
       <Pagination
         count={recipesCount}
         limit={6}

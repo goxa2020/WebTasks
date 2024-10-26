@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Column from './column.js';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import styles from './style.module.css'
 
 const initialData = {
   todo: [
@@ -51,7 +52,7 @@ const Board = () => {
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="board" direction="horizontal">
         {(provided) => (
-          <div className="board" ref={provided.innerRef} {...provided.droppableProps}>
+          <div className={styles.board} ref={provided.innerRef} {...provided.droppableProps}>
             <Column title="To Do" tasks={tasks.todo} />
             <Column title="In Progress" tasks={tasks.inProgress} />
             <Column title="Done" tasks={tasks.done} />
