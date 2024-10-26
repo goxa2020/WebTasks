@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Column from './column.js';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import styles from './style.module.css'
-import Popup from '../popup/popup.js';
 
 const initialData = {
   "todo": [
@@ -17,8 +16,28 @@ const initialData = {
   ],
 };
 
-const Board = ({ title }) => {
+const Board = ({ task }) => {
+
   const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [popupTitle, setPopupTitle] = useState('');
+  const [popupAssignee, setPopupAssignee] = useState('');
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'Escape') {
+      if (isPopupVisible) {
+        setIsPopupVisible(false); // Показываем div, если он скрыт
+      }
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown);
+
+    // Убираем обработчик при размонтировании компонента
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isPopupVisible]);
 
   const handleOpenPopup = () => {
     setIsPopupVisible(true);
@@ -27,6 +46,7 @@ const Board = ({ title }) => {
   const handleClosePopup = () => {
     setIsPopupVisible(false);
   };
+
   const [tasks, setTasks] = useState(initialData);
 
   const onDragEnd = (result) => {
@@ -54,19 +74,19 @@ const Board = ({ title }) => {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className={styles.board}>
-        <Column title="Беклог" tasks={tasks.todo} droppableId={'todo'}/>
-        <Column title="В процессе" tasks={tasks.inProgress} droppableId={'inProgress'}/>
-        <Column title="Выполнено" tasks={tasks.done} droppableId={'done'}/>
+        <Column title="Беклог" tasks={tasks.todo} droppableId={'todo'} popupSetters={[setPopupTitle, setPopupAssignee, setIsPopupVisible]}/>
+        <Column title="В процессе" tasks={tasks.inProgress} droppableId={'inProgress'} popupSetters={[setPopupTitle, setPopupAssignee, setIsPopupVisible]}/>
+        <Column title="Выполнено" tasks={tasks.done} droppableId={'done'} popupSetters={[setPopupTitle, setPopupAssignee, setIsPopupVisible]}/>
       </div>
       <div>
-      <h1>Пример всплывающего окна</h1>
-      <button onClick={handleOpenPopup}>Показать всплывающее окно</button>
       {isPopupVisible && (
         <div className={styles.popup}>
         <div className={styles.popupContent}>
-          <h2>{title}</h2>
-          <p>Пароли должны совпадать.</p>
-          <button onClick={handleClosePopup}>ОК</button>
+          <div className={styles.titlepopup}>
+          <h2>{popupTitle}</h2>
+          <i onClick={handleClosePopup} class="fa fa-times" aria-hidden="true"></i>
+          </div>
+          <p>{popupAssignee}</p>
         </div>
       </div>
       )}

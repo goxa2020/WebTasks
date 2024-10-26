@@ -87,6 +87,7 @@
 	vertical-align: top;
 }
 
+
 .popup {
     position: fixed;
     top: 0;
@@ -99,6 +100,11 @@
     align-items: center;
     z-index: 1000; /* Убедитесь, что pop-up выше других элементов */
   }
+  @keyframes ani {
+    0% {transform: translateX(-150%);}
+    100% {transform: translateY(0);}
+  }
+
   
   .popupContent {
     background-color: white; /* Цвет фона поп-апа */
@@ -107,6 +113,8 @@
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Тень */
     text-align: left; /* Центрирование текста */
     width: 1000px; /* Ширина поп-апа */
+    transform: translateX(-150%);
+    animation: ani 0.1s forwards;
   }
   
   .popup h2 {
@@ -144,3 +152,7 @@
     display: none; /* Скрываем pop-up */
   }
   
+  .titlepopup {
+    display: flex;
+    justify-content: space-between;
+  }

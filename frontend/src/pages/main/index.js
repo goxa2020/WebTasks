@@ -53,13 +53,6 @@ const HomePage = ({ updateOrders }) => {
       </MetaTags>
       <div className={styles.title}>
         <Title title='Проекты' />
-        <CheckboxGroup
-          values={tagsValue}
-          handleChange={value => {
-            setRecipesPage(1)
-            handleTagsChange(value)
-          }}
-        />
       </div>
       <Board/>
       <Pagination
