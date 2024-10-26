@@ -1,23 +1,7 @@
 export default [
   {
     title: 'Проекты',
-    href: '/recipes',
-    auth: false
-  },{
-    title: 'Мои подписки',
-    href: '/subscriptions',
-    auth: true
-  },{
-    title: 'Создать проект',
-    href: '/recipes/create',
-    auth: true
-  },{
-    title: 'Избранное',
-    href: '/favorites',
-    auth: true
-  }, {
-    title: 'Список проектов',
-    href: '/cart',
+    href: '/tasks',
     auth: true
   }
 ]
