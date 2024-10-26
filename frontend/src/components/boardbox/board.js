@@ -4,14 +4,14 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import styles from './style.module.css'
 
 const initialData = {
-  todo: [
+  "todo": [
     { id: '1', title: 'Task 1', assignee: 'Alice' },
     { id: '2', title: 'Task 2', assignee: 'Bob' },
   ],
-  inProgress: [
+  "in-progress": [
     { id: '3', title: 'Task 3', assignee: 'Charlie' },
   ],
-  done: [
+  "done": [
     { id: '4', title: 'Task 4', assignee: 'David' },
   ],
 };
@@ -23,18 +23,11 @@ const Board = () => {
     if (!result.destination) return;
 
     const { source, destination } = result;
-
-    if (source.droppableId === destination.droppableId) {
-      const columnTasks = Array.from(tasks[source.droppableId]);
-      const [movedTask] = columnTasks.splice(source.index, 1);
-      columnTasks.splice(destination.index, 0, movedTask);
-
-      setTasks((prevTasks) => ({
-        ...prevTasks,
-        [source.droppableId]: columnTasks,
-      }));
-    } else {
+    console.log(source)
+    console.log(destination)
+    if (source.droppableId !== destination.droppableId) {
       const sourceTasks = Array.from(tasks[source.droppableId]);
+
       const destinationTasks = Array.from(tasks[destination.droppableId]);
       const [movedTask] = sourceTasks.splice(source.index, 1);
 
@@ -50,16 +43,11 @@ const Board = () => {
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <Droppable droppableId="board" direction="horizontal">
-        {(provided) => (
-          <div className={styles.board} ref={provided.innerRef} {...provided.droppableProps}>
-            <Column title="To Do" tasks={tasks.todo} />
-            <Column title="In Progress" tasks={tasks.inProgress} />
-            <Column title="Done" tasks={tasks.done} />
-            {provided.placeholder}
-          </div>
-        )}
-      </Droppable>
+      <div className={styles.board}>
+        <Column title="To Do" tasks={tasks.todo} />
+        <Column title="In Progress" tasks={tasks.inProgress} />
+        <Column title="Done" tasks={tasks.done} />
+      </div>
     </DragDropContext>
   );
 };
