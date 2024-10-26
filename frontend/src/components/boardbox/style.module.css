@@ -1,22 +1,146 @@
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css");
+
 .board {
+    background-color: #f1f1f1;
     display: flex;
     flex-direction: row;
     width: auto;
-    justify-content: space-between
+    justify-content: space-between;
+    margin-bottom: 20px;
+    border-radius: 15px;
 }
 
 .column {
     margin: 8px;
     padding: 16px;
-    background-color: #f0f0f0;
     border-radius: 4px;
     width: 300px;
 }
 
-.task-card {
-    background-color: #fff;
+.taskCard {
+    background-color: #ffffff;
     padding: 8px;
     margin: 4px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border: 1px solid #f3f3f3;
+    border-radius: 10px;
+    -webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
+
+.btn {
+	display: inline-block;	
+	box-sizing: border-box;
+	padding: 0 20px;
+	margin: 0 15px 15px 0;
+	outline: none;
+	border: none;  
+	border-radius: 4px;
+	height: 32px;
+	line-height: 32px;
+	font-size: 14px;
+	font-weight: 500;
+	text-decoration: none;
+	color: #fff;
+	background-color: #3775dd;
+	box-shadow: 0 2px #21487f;
+	cursor: pointer;
+	user-select: none;
+	appearance: none;
+	touch-action: manipulation;  
+	vertical-align: top;
+}
+.btn:hover {
+	background-color: #002fed;
+}
+.btn:active {
+	background-color: #2f599e !important;
+}
+.btn:focus-visible {
+	box-shadow: 0 0 0 3px lightskyblue;
+}
+.btn:disabled {
+	background-color: #6c87b5;
+	pointer-events: none;
+}
+
+.btnadd {
+    display: inline-block;	
+	box-sizing: border-box;
+	margin: 0 15px 15px 0;
+	outline: none;
+	border: none;  
+	height: 32px;
+	line-height: 32px;
+	font-size: 14px;
+	font-weight: 500;
+	text-decoration: none;
+    background: rgba(0, 0, 0, 0);
+	color: #000000;
+	cursor: pointer;
+	user-select: none;
+	appearance: none;
+	touch-action: manipulation;  
+	vertical-align: top;
+}
+
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Убедитесь, что pop-up выше других элементов */
+  }
+  
+  .popupContent {
+    background-color: white; /* Цвет фона поп-апа */
+    border-radius: 8px; /* Скругление углов */
+    padding: 20px; /* Внутренние отступы */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Тень */
+    text-align: left; /* Центрирование текста */
+    width: 1000px; /* Ширина поп-апа */
+  }
+  
+  .popup h2 {
+    text-align: left;
+    margin: 0 0 10px; /* Отступы для заголовка */
+    font-size: 20px; /* Размер шрифта заголовка */
+  }
+  
+  .popup p {
+    margin: 0 0 20px; /* Отступы для текста сообщения */
+    font-size: 16px; /* Размер шрифта сообщения */
+  }
+  
+  .popup button {
+    background-color: #007bff; /* Цвет кнопки */
+    color: white; /* Цвет текста кнопки */
+    border: none; /* Убираем границу */
+    border-radius: 5px; /* Скругление углов кнопки */
+    padding: 10px 15px; /* Внутренние отступы кнопки */
+    cursor: pointer; /* Указатель курсора при наведении */
+    transition: background-color 0.3s; /* Плавный переход цвета фона */
+    display: flex; /* Используем flexbox для центрирования текста */
+    justify-content: center; /* Центрирование текста по горизонтали */
+    align-items: center; /* Центрирование текста по вертикали */
+    width: 100px; /* Ширина кнопки (можно изменить по желанию) */
+    margin: 0 auto; /* Центрирование кнопки в контейнере */
+  }
+  
+  .popup button:hover {
+    background-color: #0056b3; /* Цвет кнопки при наведении */
+  }
+  
+  /* Класс для скрытия pop-up */
+  .popup.hidden {
+    display: none; /* Скрываем pop-up */
+  }
+  

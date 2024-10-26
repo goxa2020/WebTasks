@@ -17,6 +17,7 @@ const Column = ({ title, tasks, droppableId }) => {
             </Draggable>
           ))}
           {provided.placeholder}
+          <button className={styles.btnadd}><i class="fa fa-plus" aria-hidden="true"></i> Добавить задачу</button>
         </div>
       )}
     </Droppable>
