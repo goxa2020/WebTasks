@@ -42,14 +42,9 @@ class TagAdmin(admin.ModelAdmin):
 @admin.register(User)
 class UserAdmin(UserAdmin):
     list_display = (
-        'id',
         'username',
         'fio',
-        'count_tasks',
     )
-
-    def count_tasks(self, count_tasks):
-        return count_tasks.tasks.count()
 
 
 admin.site.unregister(Group)

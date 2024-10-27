@@ -1,7 +1,5 @@
 from djoser.serializers import UserCreateSerializer, UserSerializer
-from drf_base64.fields import Base64ImageField
 from rest_framework import serializers
-from rest_framework.fields import IntegerField, SerializerMethodField
 from rest_framework.relations import PrimaryKeyRelatedField
 
 
@@ -52,6 +50,8 @@ class DefaultTaskSerializer(serializers.ModelSerializer):
 
 class TaskSerializer(serializers.ModelSerializer):
     tag = TagSerializer(read_only=True, many=False)
+    author = UserSerializer()
+    doer = UserSerializer()
 
     class Meta:
         fields = (
@@ -59,6 +59,7 @@ class TaskSerializer(serializers.ModelSerializer):
             'pub_date',
             'tag',
             'text',
+            'status',
             'author',
             'doer',
             'name',

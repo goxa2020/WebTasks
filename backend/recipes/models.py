@@ -69,6 +69,13 @@ class Task(models.Model):
     doer = models.ForeignKey(
         User, related_name='assigned_tasks', on_delete=models.CASCADE
     )
+
+    class Statuses(models.TextChoices):
+        TODO = 'todo', _('to do')
+        IN_PROCESS = 'in_p', _('in process')
+        DONE = 'done', _('done')
+
+    status = models.CharField(max_length=4, choices=Statuses.choices, default=Statuses.TODO)
     name = models.CharField(max_length=NAME_LEGNTH, verbose_name='название')
     text = models.TextField(verbose_name='описание')
     tag = models.ForeignKey(

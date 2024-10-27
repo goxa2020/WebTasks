@@ -8,13 +8,14 @@ load_dotenv()
 
 SECRET_KEY = os.getenv('SECRET_KEY', '53252')
 
-DEBUG = True  # os.environ.get('DEBUG', False) == 'True'
+DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
+    '91.186.197.225'
 ]
-# CSRF_TRUSTED_ORIGINS = ['']
+# CSRF_TRUSTED_ORIGINS = ['91.186.197.225']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -65,24 +66,24 @@ TEMPLATES = [
 WSGI_APPLICATION = 'backend.wsgi.application'
 
 
-# if os.getenv('SQLITE', 'False') == 'True':
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+if os.getenv('SQLITE', 'False') == 'True':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
-# else:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.postgresql',
-#             'NAME': os.getenv('POSTGRES_DB', 'django'),
-#             'USER': os.getenv('POSTGRES_USER', 'django_user'),
-#             'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'mysecretpassword'),
-#             'PORT': os.getenv('DB_PORT', 5432),
-#             'HOST': os.getenv('DB_HOST', ''),
-#         }
-#     }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'usersdb',
+            'USER': 'root',
+            'PASSWORD': '90809080',
+            'HOST': '91.186.197.225',  # или имя хоста, на котором запущен сервер MySQL
+            'PORT': '3306',  # или порт, на котором слушает сервер MySQL
+        }
+    }
 
 
 AUTH_PASSWORD_VALIDATORS = [
