@@ -3,11 +3,12 @@ import { Droppable, Draggable } from 'react-beautiful-dnd';
 import TaskCard from './taskcard.js';
 import styles from './style.module.css'
 
-const Column = ({ tasks, droppableId, popupSetters }) => {
+const Column = ({ title, tasks, droppableId, popupSetters }) => {
   return (
     <Droppable droppableId={droppableId}>
       {(provided) => (
         <div className={styles.column} ref={provided.innerRef} {...provided.droppableProps}>
+          <h2>{title}</h2>
           {tasks && tasks.map((task, index) => (
             <Draggable key={task.id} draggableId={task.id.toString()} index={index}>
               {(provided) => (

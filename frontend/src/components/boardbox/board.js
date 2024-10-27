@@ -33,26 +33,26 @@ const Board = ( recipes ) => {
   const handleClosePopup = () => {
     setIsPopupVisible(false);
   };
+  console.log(recipes.recipes[0].status)
+  const todoTasks = recipes.recipes.filter((task) => task.status === 'todo')
+  const inProcessTasks = recipes.recipes.filter((task) => task.status === 'in_p')
+  const doneTasks = recipes.recipes.filter((task) => task.status === 'done')
 
-  const [tasks, setTasks] = useState(recipes);
-  const [todo_tasks, setTodoTasks] = useState(tasks.recipes.filter((task) => task.status === 'todo'));
-  const [in_p_tasks, setInProcessTasks] = useState(tasks.recipes.filter((task) => task.status === 'in_p'));
-  const [done_tasks, setDoneTasks] = useState(tasks.recipes.filter((task) => task.status === 'done'));
   const [tasksDict, setTasksDict] = useState({
-    'todo': todo_tasks,
-    'inProgress': in_p_tasks,
-    'done': done_tasks
+    'todo': todoTasks,
+    'inProgress': inProcessTasks,
+    'done': doneTasks
   });
+  console.log(tasksDict)
+  // useEffect(() => {
+  //   setTasks(recipes)
+  // }, [recipes])
 
-  useEffect(() => {
-    setTasks(recipes)
-  }, [recipes])
-
-  useEffect(() => {
-    setTodoTasks(tasks.recipes.filter((task) => task.status === 'todo'))
-    setInProcessTasks(tasks.recipes.filter((task) => task.status === 'in_p'))
-    setDoneTasks(tasks.recipes.filter((task) => task.status === 'done'))
-  }, [tasks])
+  // useEffect(() => {
+  //   setTodoTasks(tasks.recipes.filter((task) => task.status === 'todo'))
+  //   setInProcessTasks(tasks.recipes.filter((task) => task.status === 'in_p'))
+  //   setDoneTasks(tasks.recipes.filter((task) => task.status === 'done'))
+  // }, [tasks])
 
 
   const onDragEnd = (result) => {
@@ -61,13 +61,17 @@ const Board = ( recipes ) => {
     const { source, destination } = result;
 
     if (source.droppableId !== destination.droppableId) {
+      console.log(source.droppableId)
+      console.log(tasksDict)
+      console.log(tasksDict[source.droppableId])
       const sourceTasks = Array.from(tasksDict[source.droppableId]);
-
       const destinationTasks = Array.from(tasksDict[destination.droppableId]);
-
       const movedTask = sourceTasks.splice(source.index, 1);
-
+      movedTask.status = destination.droppableId
       destinationTasks.splice(destination.index, 0, movedTask);
+      console.log(sourceTasks)
+      console.log(destinationTasks)
+      console.log(movedTask)
 
       setTasksDict((prevTasks) => ({
         ...prevTasks,
@@ -82,9 +86,9 @@ const Board = ( recipes ) => {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className={styles.board}>
-        <Column title="Беклог" tasks={todo_tasks} droppableId={'todo'} popupSetters={popupSetters}/>
-        <Column title="В процессе" tasks={in_p_tasks} droppableId={'inProgress'} popupSetters={popupSetters}/>
-        <Column title="Выполнено" tasks={done_tasks} droppableId={'done'} popupSetters={[setPopupTitle, setPopupAssignee, setIsPopupVisible]}/>
+        <Column title="Беклог" tasks={todoTasks} droppableId={'todo'} popupSetters={popupSetters}/>
+        <Column title="В процессе" tasks={inProcessTasks} droppableId={'inProgress'} popupSetters={popupSetters}/>
+        <Column title="Выполнено" tasks={doneTasks} droppableId={'done'} popupSetters={[setPopupTitle, setPopupAssignee, setIsPopupVisible]}/>
       </div>
       <div>
       {isPopupVisible && (
@@ -92,22 +96,22 @@ const Board = ( recipes ) => {
         <div className={styles.popupContent}>
           <div className={styles.titlepopup}>
           <h2>{popupTitle}</h2>
-          <i onClick={handleClosePopup} class="fa fa-times" aria-hidden="true"></i>
+          <i onClick={handleClosePopup} className={"fa fa-times"} aria-hidden="true"></i>
           </div>
           <p>{popupAssignee}</p>
           <div className={styles.textbox}>
             <div className={styles.textbtn}>
               <div className={styles.btnedit}>
-              <i class="fa fa-italic" aria-hidden="true"></i>
+              <i className={"fa fa-italic"} aria-hidden="true"></i>
               </div>
               <div className={styles.btnedit}>
-              <i class="fa fa-bold" aria-hidden="true"></i>
+              <i className={"fa fa-bold"} aria-hidden="true"></i>
               </div>
               <div className={styles.btnedit}>
-              <i cclass="fa fa-underline" aria-hidden="true"></i>
+              <i className={"fa fa-underline"} aria-hidden="true"></i>
               </div>
               <div className={styles.btnedit}>
-              <i class="fa fa-link" aria-hidden="true"></i>
+              <i className={"fa fa-link"} aria-hidden="true"></i>
               </div>
             </div>
           <input className={styles.texteditor} type="text" id="name" name="name"/>
