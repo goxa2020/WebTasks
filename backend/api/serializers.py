@@ -2,8 +2,6 @@ from djoser.serializers import UserCreateSerializer, UserSerializer
 from rest_framework import serializers
 from rest_framework.relations import PrimaryKeyRelatedField
 
-
-
 from recipes.models import (
     Task,
     Tag,
@@ -63,7 +61,6 @@ class TaskSerializer(serializers.ModelSerializer):
             'author',
             'doer',
             'name',
-            'deadline'
         )
         model = Task
 
@@ -73,23 +70,17 @@ class CreateTaskSerializer(serializers.ModelSerializer):
 
     class Meta:
         fields = (
-            'id',
-            'pub_date',
             'tag',
             'text',
-            'author',
             'doer',
+            'author',
             'name',
-            'deadline'
         )
         model = Task
 
     def create(self, validated_data):
-        author = validated_data.pop('author', None)
-        if not author:
-            return
-        recipes = Task.objects.create(author=author, **validated_data)
-        return recipes
+        task = Task.objects.create(**validated_data)
+        return task
 
     def validate(self, data):
         if self.context['request'].method == 'POST':

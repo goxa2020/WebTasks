@@ -102,16 +102,13 @@ class Api {
   getRecipes ({
     page = 1,
     limit = 6,
-    is_favorited = 0,
-    is_in_shopping_cart = 0,
     author,
-    tags
+    tag
   } = {}) {
       const token = localStorage.getItem('token')
       const authorization = token ? { 'authorization': `Token ${token}` } : {}
-      const tagsString = tags ? tags.filter(tag => tag.value).map(tag => `&tags=${tag.slug}`).join('') : ''
       return fetch(
-        `/api/recipes/?page=${page}&limit=${limit}${author ? `&author=${author}` : ''}${is_favorited ? `&is_favorited=${is_favorited}` : ''}${is_in_shopping_cart ? `&is_in_shopping_cart=${is_in_shopping_cart}` : ''}${tagsString}`,
+        `/api/tasks/?page=${page}&limit=${limit}${author ? `&author=${author}` : ''}${tag ? `&tag=${tag}` : ''}`,
         {
           method: 'GET',
           headers: {
@@ -123,12 +120,12 @@ class Api {
   }
 
   getRecipe ({
-    recipe_id
+    task_id
   }) {
     const token = localStorage.getItem('token')
     const authorization = token ? { 'authorization': `Token ${token}` } : {}
     return fetch(
-      `/api/recipes/${recipe_id}/`,
+      `/api/tasks/${task_id}/`,
       {
         method: 'GET',
         headers: {
@@ -141,11 +138,9 @@ class Api {
 
   createRecipe ({
     name = '',
-    image,
-    tags = [],
-    cooking_time = 0,
+    tag = '',
+    doer = '',
     text = '',
-    ingredients = []
   }) {
     const token = localStorage.getItem('token')
     return fetch(
@@ -158,11 +153,9 @@ class Api {
         },
         body: JSON.stringify({
           name,
-          image,
-          tags,
-          cooking_time,
+          tag,
           text,
-          ingredients
+          doer
         })
       }
     ).then(this.checkResponse)

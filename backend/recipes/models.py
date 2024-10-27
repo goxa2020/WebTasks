@@ -81,7 +81,6 @@ class Task(models.Model):
     tag = models.ForeignKey(
         Tag, related_name='tasks', verbose_name='тэги', on_delete=models.CASCADE
     )
-    deadline = models.DateField(verbose_name='сроки выполнения')
     pub_date = models.DateField('дата публикации', auto_now_add=True)
 
     class Meta:

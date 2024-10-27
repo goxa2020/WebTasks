@@ -1,23 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Column from './column.js';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { DragDropContext} from 'react-beautiful-dnd';
 import styles from './style.module.css'
 
-const initialData = {
-  "todo": [
-    { id: '1', title: 'Задача 1', assignee: 'Федор' },
-    { id: '2', title: 'Задача 2', assignee: 'Шарик' },
-  ],
-  "inProgress": [
-    { id: '3', title: 'Задача 3', assignee: 'Эльдар' },
-  ],
-  "done": [
-    { id: '4', title: 'Задача 4', assignee: 'Джарахов' },
-  ],
-};
 
-const Board = ({ task }) => {
-
+const Board = ( recipes ) => {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [popupTitle, setPopupTitle] = useState('');
   const [popupAssignee, setPopupAssignee] = useState('');
@@ -47,36 +34,57 @@ const Board = ({ task }) => {
     setIsPopupVisible(false);
   };
 
-  const [tasks, setTasks] = useState(initialData);
+  const [tasks, setTasks] = useState(recipes);
+  const [todo_tasks, setTodoTasks] = useState(tasks.recipes.filter((task) => task.status === 'todo'));
+  const [in_p_tasks, setInProcessTasks] = useState(tasks.recipes.filter((task) => task.status === 'in_p'));
+  const [done_tasks, setDoneTasks] = useState(tasks.recipes.filter((task) => task.status === 'done'));
+  const [tasksDict, setTasksDict] = useState({
+    'todo': todo_tasks,
+    'inProgress': in_p_tasks,
+    'done': done_tasks
+  });
+
+  useEffect(() => {
+    setTasks(recipes)
+  }, [recipes])
+
+  useEffect(() => {
+    setTodoTasks(tasks.recipes.filter((task) => task.status === 'todo'))
+    setInProcessTasks(tasks.recipes.filter((task) => task.status === 'in_p'))
+    setDoneTasks(tasks.recipes.filter((task) => task.status === 'done'))
+  }, [tasks])
+
 
   const onDragEnd = (result) => {
     if (!result.destination) return;
 
     const { source, destination } = result;
-    console.log(source)
-    console.log(destination)
-    if (source.droppableId !== destination.droppableId) {
-      const sourceTasks = Array.from(tasks[source.droppableId]);
 
-      const destinationTasks = Array.from(tasks[destination.droppableId]);
-      const [movedTask] = sourceTasks.splice(source.index, 1);
+    if (source.droppableId !== destination.droppableId) {
+      const sourceTasks = Array.from(tasksDict[source.droppableId]);
+
+      const destinationTasks = Array.from(tasksDict[destination.droppableId]);
+
+      const movedTask = sourceTasks.splice(source.index, 1);
 
       destinationTasks.splice(destination.index, 0, movedTask);
 
-      setTasks((prevTasks) => ({
+      setTasksDict((prevTasks) => ({
         ...prevTasks,
         [source.droppableId]: sourceTasks,
         [destination.droppableId]: destinationTasks,
       }));
+      console.log(tasksDict)
     }
   };
+  const popupSetters = [setPopupTitle, setPopupAssignee, setIsPopupVisible]
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className={styles.board}>
-        <Column title="Беклог" tasks={tasks.todo} droppableId={'todo'} popupSetters={[setPopupTitle, setPopupAssignee, setIsPopupVisible]}/>
-        <Column title="В процессе" tasks={tasks.inProgress} droppableId={'inProgress'} popupSetters={[setPopupTitle, setPopupAssignee, setIsPopupVisible]}/>
-        <Column title="Выполнено" tasks={tasks.done} droppableId={'done'} popupSetters={[setPopupTitle, setPopupAssignee, setIsPopupVisible]}/>
+        <Column title="Беклог" tasks={todo_tasks} droppableId={'todo'} popupSetters={popupSetters}/>
+        <Column title="В процессе" tasks={in_p_tasks} droppableId={'inProgress'} popupSetters={popupSetters}/>
+        <Column title="Выполнено" tasks={done_tasks} droppableId={'done'} popupSetters={[setPopupTitle, setPopupAssignee, setIsPopupVisible]}/>
       </div>
       <div>
       {isPopupVisible && (

@@ -1,6 +1,5 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group
-from django.utils.translation import gettext_lazy as _
 from django.utils.safestring import mark_safe
 from django.contrib.auth.admin import UserAdmin
 
@@ -12,13 +11,11 @@ class TaskAdmin(admin.ModelAdmin):
     list_display = (
         'name',
         'author',
-        'deadline',
         'tag',
     )
     fields = (
         'name',
         'author',
-        'deadline',
         'tag',
         'text',
     )

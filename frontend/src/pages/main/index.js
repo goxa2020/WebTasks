@@ -22,9 +22,9 @@ const HomePage = ({ updateOrders }) => {
   } = useRecipes()
 
 
-  const getRecipes = ({ page = 1, tags }) => {
+  const getRecipes = ({ page = 1, tag }) => {
     api
-      .getRecipes({ page, tags })
+      .getRecipes({ page, tag })
       .then(res => {
         const { results, count } = res
         setRecipes(results)
@@ -39,10 +39,9 @@ const HomePage = ({ updateOrders }) => {
   useEffect(_ => {
     api.getTags()
       .then(tags => {
-        setTagsValue(tags.map(tag => ({ ...tag, value: true })))
+        tags && setTagsValue(tags.map(tag => ({ ...tag, value: true })))
       })
   }, [])
-
 
   return <Main>
     <Container>
@@ -54,7 +53,7 @@ const HomePage = ({ updateOrders }) => {
       <div className={styles.title}>
         <Title title='Проекты' />
       </div>
-      <Board/>
+      <Board recipes={recipes}/>
       <Pagination
         count={recipesCount}
         limit={6}

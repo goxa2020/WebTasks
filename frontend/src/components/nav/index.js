@@ -8,7 +8,7 @@ const Nav = ({ loggedIn, orders }) => {
     <div className={styles.nav__container}>
       <div className={styles.filtercontainer}>
         <div className={styles.icont}>
-        <i class="fa fa-filter" aria-hidden="true"></i>
+        <i className={"fa fa-filter"} aria-hidden="true"></i>
         <div className={styles.del}>|</div>
         </div>
       <input type="text" id="name" name="name"/>
