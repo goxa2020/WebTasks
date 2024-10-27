@@ -87,6 +87,25 @@ const Board = ({ task }) => {
           <i onClick={handleClosePopup} class="fa fa-times" aria-hidden="true"></i>
           </div>
           <p>{popupAssignee}</p>
+          <div className={styles.textbox}>
+            <div className={styles.textbtn}>
+              <div className={styles.btnedit}>
+              <i class="fa fa-italic" aria-hidden="true"></i>
+              </div>
+              <div className={styles.btnedit}>
+              <i class="fa fa-bold" aria-hidden="true"></i>
+              </div>
+              <div className={styles.btnedit}>
+              <i cclass="fa fa-underline" aria-hidden="true"></i>
+              </div>
+              <div className={styles.btnedit}>
+              <i class="fa fa-link" aria-hidden="true"></i>
+              </div>
+            </div>
+          <input className={styles.texteditor} type="text" id="name" name="name"/>
+          </div>
+          <p>Приоритет: </p>
+          <button className={styles.btn}>Отправить</button>
         </div>
       </div>
       )}

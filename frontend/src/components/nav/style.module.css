@@ -3,6 +3,17 @@
   width: 100%;
 }
 
+.icont {
+  display: flex;
+}
+
+.del {
+  margin-bottom: 20px;
+  height: 1px;
+  margin-left: 10px;
+  background-color: rgba(0, 0, 0, 0);
+}
+
 .nav__container {
   display: flex;
   justify-content: space-between;
@@ -76,6 +87,35 @@
   border-radius: 36px;
 }
 
+.filtercontainer {
+  align-items: center;
+  display: flex;
+  height: 50px;
+  text-align: center;
+  justify-content: left;
+  box-shadow:none;
+  width: 250px;
+  border-radius: 15px;
+  background-color: #fafafa;
+}
+
+.filtercontainer input {
+  background-color: #fafafa;
+  outline: none;
+  height: 100%;
+  margin-left: 15px;
+  background: transparent;
+  border: none;
+  
+}
+
+.filtercontainer i {
+  margin-left: 20px;
+}
+
+.filtercontainer:hover {
+  box-shadow:  0 0 10px #3775dd;
+}
 
 @media screen and (max-width: 990px) {
   .nav__link {

@@ -172,12 +172,7 @@ function App() {
       <div className={cn("App", {
         [styles.appMenuToggled]: menuToggled
       })}>
-        <div
-          className={styles.menuButton}
-          onClick={_ => setMenuToggled(!menuToggled)}
-        >
-          <img src={hamburgerImg} />
-        </div>
+        
         <Header orders={orders} loggedIn={loggedIn} onSignOut={onSignOut} />
         <Switch>
           <ProtectedRoute

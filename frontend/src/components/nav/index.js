@@ -6,6 +6,13 @@ import navigation from '../../configs/navigation'
 const Nav = ({ loggedIn, orders }) => {
   return <nav className={styles.nav}>
     <div className={styles.nav__container}>
+      <div className={styles.filtercontainer}>
+        <div className={styles.icont}>
+        <i class="fa fa-filter" aria-hidden="true"></i>
+        <div className={styles.del}>|</div>
+        </div>
+      <input type="text" id="name" name="name"/>
+      </div>
       <ul className={styles.nav__items}>
         {navigation.map(item => {
           if (!loggedIn && item.auth) { return null }
